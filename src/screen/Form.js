@@ -1,16 +1,65 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, TextInput, Button, StyleSheet } from 'react-native'
+import { useSelector, useDispatch } from 'react-redux'
+import {  createUser, editUser } from "../feature/userSlice";
+import { CREATE_USER, EDIT_USER } from '../constants/index'
+import { useRoute } from '@react-navigation/native';
 
-const Form = ({navigation}) => {
+
+
+const Form = ({ navigation }) => {
+
+    const dispatch = useDispatch()
+
+    const position = useSelector((state) => state.users.position)
+    const userData = useSelector((state)=> state.users.users)
+    const { edit } = useRoute().params || false; 
 
     const [email, setEmail] = useState('')
     const [phone, setPhone] = useState('')
     const [dob, setDob] = useState('')
 
-    const saveFormAndGoBack = ()=>{
-        //data to be saved
 
-        //go back
+    useEffect(()=>{
+        if(edit){
+            const user = userData[position]
+            setEmail(user.email)
+            setPhone(user.phone)
+            setDob(user.dob)
+        }
+    }, [])
+
+    const createNewUser = () => {
+        const user = {
+            email: email,
+            phone: phone,
+            dob: dob
+        }
+
+        console.log(user)
+        dispatch(createUser({user: user}))
+    }
+
+    const editExistingUser = () => {
+        dispatch(editUser({
+            position: position,
+            user: {
+                email: email,
+                phone: phone,
+                dob: dob
+            }
+        }))
+    }
+
+    const saveFormAndGoBack = () => {
+        //data to be saved
+        if(edit){
+            editExistingUser()
+        } else {
+            createNewUser()
+        }
+
+        //go back   
         navigation.goBack()
     }
 
