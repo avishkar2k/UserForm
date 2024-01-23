@@ -1,11 +1,13 @@
 import React from "react";
 import {View, TouchableOpacity, StyleSheet} from 'react-native'
 
-const HeaderAddButton = ()=>{
+const HeaderAddButton = ({callback})=>{
     return (
-        <View>
-            <View /> 
-        </View>
+        <TouchableOpacity onPress={callback}>
+            <View>
+                <View /> 
+            </View>
+        </TouchableOpacity>
     )
 }
 
