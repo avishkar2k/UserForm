@@ -1,0 +1,121 @@
+[
+  {
+    "id":0,
+    "name": "MMM",
+    "price": 44.28,
+    "percent": -9.58,
+    "capital": 2486.08
+  },
+  {
+    "id":1,
+    "name": "AMZN",
+    "price": 89.38,
+    "percent": -7.42,
+    "capital": 6986.06
+  },
+  {
+    "id":2,
+    "name": "CPB",
+    "price": 37,
+    "percent": 14.13,
+    "capital": 1993.87
+  },
+  {
+    "id":3,
+    "name": "DIS",
+    "price": 40.68,
+    "percent": -20.23,
+    "capital": 3937.18
+  },
+  {
+    "id":4,
+    "name": "DOW",
+    "price": 38.83,
+    "percent": 17.02,
+    "capital": 50.23
+  },
+  {
+    "id":5,
+    "name": "XOM",
+    "price": 39,
+    "percent": -5.54,
+    "capital": 575.38
+  },
+  {
+    "id":6,
+    "name": "F",
+    "price": 27.34,
+    "percent": 1.26,
+    "capital": 112.72
+  },
+  {
+    "id":7,
+    "name": "GPS",
+    "price": 46,
+    "percent": 7.34,
+    "capital": 4320.54
+  },
+  {
+    "id":8,
+    "name": "GIS",
+    "price": 15.59,
+    "percent": -6.66,
+    "capital": 1015.65
+  },
+  {
+    "id":9,
+    "name": "HPQ",
+    "price": 66.28,
+    "percent": 3.87,
+    "capital": 2212.84
+  },
+  {
+    "id":10,
+    "name": "IBM",
+    "price": 118.37,
+    "percent": 5.94,
+    "capital": 5986.56
+  },
+  {
+    "id":11,
+    "name": "JNJ",
+    "price": 35.13,
+    "percent": -13.95,
+    "capital": 312.51
+  },
+  {
+    "id":12,
+    "name": "MSFT",
+    "price": 55.72,
+    "percent": -7.22,
+    "capital": 1259.08
+  },
+  {
+    "id":13,
+    "name": "MO",
+    "price": 11.47,
+    "percent": 7.73,
+    "capital": 942.63
+  },
+  {
+    "id":14,
+    "name": "PEP",
+    "price": 34.13,
+    "percent": -3.05,
+    "capital": 3366.68
+  },
+  {
+    "id":15,
+    "name": "SBUX",
+    "price": 6.23,
+    "percent": -6.34,
+    "capital": 347.48
+  },
+  {
+    "id":16,
+    "name": "TXN",
+    "price": 53.88,
+    "percent": 2.96,
+    "capital": 2080.16
+  }
+]
