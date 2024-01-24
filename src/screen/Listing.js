@@ -18,10 +18,7 @@ const Listing = ({ navigation, getPageList }) => {
         try {
             const data = require('../assets/stocks.json')
             console.log(data);
-            dispatch({
-                type: GET_PAGE_LIST,
-                payload: data,
-            });
+            dispatch();
 
             return data || [];
         } catch (error) {
