@@ -42,7 +42,7 @@ const ListItem = ({ item, position }) => {
   };
 
     return (
-        <View style={[styles.row, {width:layout.width*0.9, overflow:false}]}>
+        <View style={[styles.row, {width:layout.width*0.9}]}>
             <TouchableOpacity onPress={gotoEditUserDetails}>
                 <View style={styles.container}>
                     <Text style={styles.text}>Email: {item.email}</Text>
