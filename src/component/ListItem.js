@@ -3,7 +3,7 @@ import { Text, View, Image, StyleSheet, TouchableOpacity, Modal, useWindowDimens
 import { useDispatch } from 'react-redux'
 import { deleteUser, crudUserPosition } from "../feature/userSlice";
 import { useNavigation } from "@react-navigation/native";
-
+import { getDisplayStringDob } from "../untils/dateFormatting";
 
 const ListItem = ({ item, position }) => {
     const layout = useWindowDimensions()
@@ -36,11 +36,6 @@ const ListItem = ({ item, position }) => {
         toggleModal()
     }
 
-    const getDisplayDob= (dob) =>{
-        console.log(dob);
-        return new Date(dob).toLocaleDateString('en-US')
-    }
-
 
   const toggleModal = () => {
     setModalVisible(!isModalVisible);
@@ -52,7 +47,7 @@ const ListItem = ({ item, position }) => {
                 <View style={styles.container}>
                     <Text style={styles.text}>Email: {item.email}</Text>
                     <Text style={styles.text}>Phone: {item.phone}</Text>
-                    <Text style={styles.text}>Date of Birth: {getDisplayDob(item.dob)}</Text>
+                    <Text style={styles.text}>Date of Birth: {getDisplayStringDob(item.dob)}</Text>
                 </View>
             </TouchableOpacity>
             

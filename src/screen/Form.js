@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native'
+import { View, Text, TextInput, Button, StyleSheet, Platform, TouchableOpacity } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import {  createUser, editUser } from "../feature/userSlice";
 import { useRoute } from '@react-navigation/native';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { commonDateToString, getDisplayStringDob, getDateFromString } from "../untils/dateFormatting";
 
 const phoneNumberRegex = /^\+?[0-9]{6,14}$/;
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 
 const Form = ({ navigation }) => {
+
+    const iOSPlatform = Platform.OS === 'ios'
 
     const dispatch = useDispatch()
 
@@ -25,7 +28,10 @@ const Form = ({ navigation }) => {
     const [dob, setDob] = useState(new Date())
     const displaymode = 'date' //display mode for the date picker
 
+    const [shouldShowCalendarOnAndroid, setShouldShowAndroidCalendar] = useState(false)
+
     const changeSelectedDate = (event, selectedDate) => {
+        if(!iOSPlatform && shouldShowCalendarOnAndroid)setShouldShowAndroidCalendar(false) //hide calendar on android
         console.log(selectedDate);
         if (selectedDate instanceof Date) {
             setDob(selectedDate)
@@ -37,8 +43,7 @@ const Form = ({ navigation }) => {
             const user = userData[position]
             setEmail(user.email)
             setPhone(user.phone)
-            const date = new Date(user.dob)
-            setDob(date instanceof Date? date: new Date())
+            setDob(getDateFromString(user.dob))
         }
     }, [])
 
@@ -46,7 +51,7 @@ const Form = ({ navigation }) => {
         const user = {
             email: email,
             phone: phone,
-            dob: dob.toISOString()
+            dob: commonDateToString(dob)
         }
 
         console.log(user)
@@ -59,7 +64,7 @@ const Form = ({ navigation }) => {
             user: {
                 email: email,
                 phone: phone,
-                dob: dob.toISOString()
+                dob: commonDateToString(dob)
             }
         }))
     }
@@ -89,6 +94,11 @@ const Form = ({ navigation }) => {
         }
     }
 
+
+    const toggleAndroidCalendar = ()=>{
+        setShouldShowAndroidCalendar(!shouldShowCalendarOnAndroid)
+    }
+
     return (
         <View style={styles.container}>
             <TextInput
@@ -113,18 +123,34 @@ const Form = ({ navigation }) => {
             {!isValidPhone && (
                 <Text style={styles.errorMessage}>Please enter a valid phone number</Text>
             )}
-            <View style={styles.row}>
+
+            {iOSPlatform ? (<View style={styles.row}>
                 <Text style={styles.labelText}>Select Date of Birth:</Text>
                 <DateTimePicker
-                testID="dateTimePicker"
-                value={dob}
-                mode={displaymode}
-                is24Hour={true}
-                display="default"
-                onChange={changeSelectedDate}
-            />
-            </View>
-            
+                    testID="dateTimePicker"
+                    value={dob}
+                    mode={displaymode}
+                    is24Hour={true}
+                    display="default"
+                    onChange={changeSelectedDate}
+                />
+            </View>) : (<View>
+
+                <TouchableOpacity onPress={toggleAndroidCalendar}>
+                    <Text style={[styles.input, {padding:10}]}>{getDisplayStringDob(dob)}</Text>
+                </TouchableOpacity>
+
+                {shouldShowCalendarOnAndroid &&  <DateTimePicker
+                    testID="dateTimePicker"
+                    value={dob}
+                    mode={displaymode}
+                    is24Hour={true}
+                    display="default"
+                    onChange={changeSelectedDate}
+                />}
+
+            </View>)}
+           
         <View style={styles.cta} > 
             <Button title="Submit" onPress={saveFormAndGoBack} />
         </View>
@@ -146,10 +172,9 @@ const styles = StyleSheet.create({
     },
 
     input: {
-        height: "8%",
         borderRadius: 5,
         borderWidth: 1,
-        paddingHorizontal:8,
+        paddingHorizontal:10,
         margin:15,
     },
 
